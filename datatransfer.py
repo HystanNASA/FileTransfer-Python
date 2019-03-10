@@ -49,6 +49,7 @@ def clientRoutine(sock, host, port, data, filename):
         sock.connect((host, port))
     except:
         print("Couldn't connect to server!")
+        return
     
     try:
         sock.sendall(filename)
@@ -59,12 +60,14 @@ def clientRoutine(sock, host, port, data, filename):
 
     return
 
-HOST = socket.gethostname()
+HOST =  socket.gethostbyname(socket.gethostname())
 PORT = 17000
 SERVER = True
 FILE_NAME = ''
 FILE_DATA = ''
 FILE = ''
+
+print(HOST)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-s", help = "Server", action = "store_true")
