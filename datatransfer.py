@@ -10,12 +10,12 @@ import argparse
 # -f    filename    
 
 def serverRoutine(sock, host, port):
-    
+
     sock.bind((host, port))
     sock.listen(1)
     conn, addr = sock.accept()
 
-    filename = ''
+    filename = bytes(0)
     while sys.getsizeof(filename) < 255:
         recvdata = conn.recv(1)
 
@@ -38,6 +38,8 @@ def serverRoutine(sock, host, port):
             file.write(data)
         
         file.close()
+
+        conn.sendall("DONE!")
     except:    
         print("Couldn't create the file!")
 
@@ -54,7 +56,7 @@ def clientRoutine(sock, host, port, data, filename):
     try:
         sock.sendall(filename)
         sock.sendall(data)
-        print("DONE!")
+        print(sock.recv(32))
     except:
         print("Couldn't send data to server!")
 
@@ -66,8 +68,6 @@ SERVER = True
 FILE_NAME = ''
 FILE_DATA = ''
 FILE = ''
-
-print(HOST)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-s", help = "Server", action = "store_true")
@@ -103,6 +103,8 @@ elif ((args.f == None) and (args.c == True)) or ((args.f != None) and (args.c ==
     sys.exit(1)
 
 s = socket.socket()
+
+print("Server IP: ", HOST)
 
 if SERVER == True:
     serverRoutine(s, HOST, PORT)
