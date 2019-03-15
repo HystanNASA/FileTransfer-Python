@@ -41,6 +41,7 @@ def serverRoutine(host, port, destination):
     conn, addr = sockfd.accept()
 
     filename = conn.recv(10)
+    filename = filename.decode('ascii')
     conn.sendall(b'k')
 
     data = conn.recv(1024)
@@ -51,7 +52,9 @@ def serverRoutine(host, port, destination):
         data = data + d
 
     if destination != '':
-        filename = destination + filename
+        if destination[len(destination) - 1] != '/':
+            destination = destination + "/"
+        filename = destination + str(filename)
 
     with open(filename, 'wb') as f:
         f.write(data)
