@@ -9,3 +9,5 @@ import sys
 HOST = socket.gethostname()
 PORT = 17000
 MSG  = 'Hey'
+
+for()
