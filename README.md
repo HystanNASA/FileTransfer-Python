@@ -1,7 +1,6 @@
 # FileTransfer-Python
 This program allows you to transfer files between computers with local network. This program is written in Python 2.7
 
-
 ## Usage
 To transfer a file, you have to run the program on the first computer with the '-s' flag. It will show you the computer IP address. Run the program on the second computer with the '-c', '-ip', and '-f' flags. That's it!
 
@@ -15,10 +14,10 @@ To transfer a file, you have to run the program on the first computer with the '
 
 ## Examples
 The first computer
-~~~
+```terminal
 > python main.py -s
-~~~
+```
 The second computer
-~~~
+```terminal
 > python main.py -c -f "File.txt" -ip 192.168.0.1
-~~~
+```
